@@ -12,6 +12,15 @@ class Product extends Model
     protected $primarykey = 'id';
     protected $data = [];
 
+    protected $fillable =[
+        'id_cate',
+        'product_name',
+        'description',
+        'image',
+        'price',
+        'amount'
+    ];
+
     public function categories(){
         return $this->belongsTo(Category::class,'id_cate','id');
     }

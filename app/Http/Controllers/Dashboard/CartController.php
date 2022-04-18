@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
     public function index(){
-        return view('dashboard.page.cart');
+        $cart = Cart::all();
+        return view('dashboard.page.cart.cart',['cart'=>$cart]);
+    }
+    public function store(Request $request){
+
     }
 }

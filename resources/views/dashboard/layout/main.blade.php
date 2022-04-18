@@ -15,9 +15,9 @@
                                 @forelse($cate as $ca)
                                     <div class="col-md-4 margin_bottom1">
                                         <div class="product_box">
-                                            <figure><img src="https://oopsstudiovn.com/wp-content/uploads/2021/09/002-tsushima.png" alt="#" width="90%"></figure>
-                                            <h3 style="padding: 15px;">
-                                                <a href="" style="color:yellowgreen">{{$ca->cate_name}}</a>
+                                            <figure><img title="{{$ca->cate_name}}" src="https://oopsstudiovn.com/wp-content/uploads/2021/09/002-tsushima.png" alt="#" width="90%"></figure>
+                                            <h3 title="{{$ca->cate_name}}" style="padding: 15px;">
+                                                <a title="{{$ca->cate_name}}" style="color:yellowgreen">{{$ca->cate_name}}</a>
                                             </h3>
                                         </div>
                                     </div>
@@ -28,7 +28,7 @@
                                 @endforelse
                                 
                                 <div class="col-md-12">
-                                    <a class="read_more" href="/products">See More</a>
+                                    <a class="read_more" href="/categories">See More</a>
                                 </div>
                             </div>
                         </div>
@@ -48,9 +48,9 @@
                                 @forelse($prod as $ca)
                                     <div class="col-md-4 margin_bottom1">
                                         <div class="product_box">
-                                            <figure><img src="https://oopsstudiovn.com/wp-content/uploads/2021/09/002-tsushima.png" alt="#" width=""></figure>
-                                            <h3 style="padding: 15px;">
-                                                <a href="" style="color:yellowgreen">{{$ca->product_name}}</a>
+                                            <figure><img title="{{$ca->product_name}}" src="image_upload/{{$ca->image}}" alt="#" width=""></figure>
+                                            <h3 title="{{$ca->product_name}}" style="padding: 15px;">
+                                                <a title="{{$ca->product_name}}" href="{{route('product_detail',$ca->id)}}" style="color:yellowgreen">{{$ca->product_name}}</a>
                                             </h3>
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                                 @endforelse
                                 
                                 <div class="col-md-12">
-                                    <a class="read_more" href="/categories">See More</a>
+                                    <a class="read_more" href="/products">See More</a>
                                 </div>
                             </div>
                         </div>

@@ -7,7 +7,7 @@
                      <div class="full">
                         <div class="center-desk">
                            <div class="logo">
-                              <a href="/"><img src="temp/images/logo.jpg" alt="#" width="100" /></a>
+                              <a href="/"><img src="{{asset('temp/images/logo.jpg')}}" alt="#" width="100" /></a>
                            </div>
                         </div>
                      </div>
@@ -20,17 +20,11 @@
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                            <ul class="navbar-nav mr-auto">
                               <li class="nav-item active">
-                                 <a class="nav-link" href="/">Home</a>
+                                 <a class="nav-link" href="/"><b>Home</b></a>
                               </li>
                               <li class="nav-item">
                                  <a class="nav-link" href="/products">Products</a>
                               </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="/categories">Categories</a>
-                              </li>
-                              <!-- <li class="nav-item">
-                                 <a class="nav-link" href="about.html">About</a>
-                              </li> -->
                               
                               <li class="nav-item">
                                  <a class="nav-link" href="/#contact">Contact Us</a>
@@ -38,12 +32,21 @@
                               <li class="nav-item">
                                  <a class="nav-link" href="/cart">Cart ( 0 )</a>
                               </li>
+                              @if(isset(auth()->user()->name))
                               <li class="nav-item d_none">
-                                 <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                 <a class="nav-link" href="/profile/{{auth()->user()->id}}">{{auth()->user()->name}}</a>
                               </li>
                               <li class="nav-item d_none">
-                                 <a class="nav-link" href="#">Login</a>
+                                 <a class="nav-link" href="/logout" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
                               </li>
+                              @else
+                              <li class="nav-item d_none">
+                                 <a class="nav-link" href="/login">Login</a>
+                              </li>
+                              <li class="nav-item d_none">
+                                 <a class="nav-link" href="/register">Register</a>
+                              </li>
+                              @endif
                            </ul>
                         </div>
                      </nav>
