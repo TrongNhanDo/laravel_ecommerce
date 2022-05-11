@@ -2,9 +2,12 @@
         <div  class="products">
             <div class="container">
                 <div class="row">
+                    <iframe width="100%" height="600px" src="https://www.youtube.com/embed/xsLAZdl0Lu0" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="titlepage">
-                            <h2 style="max-width: 50%">Our categories</h2>
+                            <h2 style="max-width: 50%; margin-top: 50px;">Our categories</h2>
                         </div>
                     </div>
                 </div>
@@ -15,10 +18,10 @@
                                 @forelse($cate as $ca)
                                     <div class="col-md-4 margin_bottom1">
                                         <div class="product_box">
-                                            <figure><img title="{{$ca->cate_name}}" src="https://oopsstudiovn.com/wp-content/uploads/2021/09/002-tsushima.png" alt="#" width="90%"></figure>
-                                            <h3 title="{{$ca->cate_name}}" style="padding: 15px;">
-                                                <a title="{{$ca->cate_name}}" style="color:yellowgreen">{{$ca->cate_name}}</a>
-                                            </h3>
+                                            <figure><img title="{{$ca->cate_name}}" src="{{asset('image_upload/belgium.jpg')}}" alt="#" width="90%"></figure>
+                                            <h5 title="{{$ca->cate_name}}" style="padding: 15px;">
+                                                <a href="products?catid={{$ca->id}}" title="{{$ca->cate_name}}" style="color:yellowgreen">{{$ca->cate_name}}</a>
+                                            </h4>
                                         </div>
                                     </div>
                                 @empty
@@ -26,10 +29,6 @@
                                         <a class="read_more" style="width: 100%">No category yet!</a>
                                     </div>
                                 @endforelse
-                                
-                                <div class="col-md-12">
-                                    <a class="read_more" href="/categories">See More</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -49,9 +48,9 @@
                                     <div class="col-md-4 margin_bottom1">
                                         <div class="product_box">
                                             <figure><img title="{{$ca->product_name}}" src="image_upload/{{$ca->image}}" alt="#" width=""></figure>
-                                            <h3 title="{{$ca->product_name}}" style="padding: 15px;">
+                                            <h5 title="{{$ca->product_name}}" style="padding: 15px;">
                                                 <a title="{{$ca->product_name}}" href="{{route('product_detail',$ca->id)}}" style="color:yellowgreen">{{$ca->product_name}}</a>
-                                            </h3>
+                                            </h5>
                                         </div>
                                     </div>
                                 @empty
@@ -61,7 +60,7 @@
                                 @endforelse
                                 
                                 <div class="col-md-12">
-                                    <a class="read_more" href="/products">See More</a>
+                                    <a class="read_more" href="/products">Show More</a>
                                 </div>
                             </div>
                         </div>

@@ -20,31 +20,50 @@
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                            <ul class="navbar-nav mr-auto">
                               <li class="nav-item active">
-                                 <a class="nav-link" href="/"><b>Home</b></a>
+                                 <a class="nav-link" id="_home" href="/"><b>Home</b></a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="/products">Products</a>
-                              </li>
-                              
-                              <li class="nav-item">
-                                 <a class="nav-link" href="/#contact">Contact Us</a>
+                                 <a class="nav-link" id="_product" href="/products">Products</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="/cart">Cart ( 0 )</a>
+                                 <a class="nav-link" id="_about" href="/about">About</a>
+                              </li>                              
+                              <li class="nav-item">
+                                 <a class="nav-link" id="_contact" href="/#contact">Contact</a>
                               </li>
-                              @if(isset(auth()->user()->name))
+                              <li class="nav-item">
+                                 <a class="nav-link" id="_cart" href="/cart">
+                                 </a>
+                                 <script>
+                                    $(document).ready(function(){
+                                       load_amount();
+                                       function load_amount(){
+                                          $.ajax({
+                                             type: 'get',
+                                             url: '/cart_data',
+                                             data: {},
+                                             dataType: 'json',
+                                             success: function(data){
+                                                $("#_cart").html("Cart ( "+data.sum+" )");
+                                             }
+                                          })
+                                       }
+                                    });
+                                 </script>
+                              </li>
+                              @if(session()->has('login') && session()->get('login')===true)
                               <li class="nav-item d_none">
-                                 <a class="nav-link" href="/profile/{{auth()->user()->id}}">{{auth()->user()->name}}</a>
+                                 <a id="_user" class="nav-link user_name" href="/profile/{{session()->get('userid')}}">{{session()->get('username')}}</a>
                               </li>
                               <li class="nav-item d_none">
                                  <a class="nav-link" href="/logout" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
                               </li>
                               @else
                               <li class="nav-item d_none">
-                                 <a class="nav-link" href="/login">Login</a>
+                                 <a class="nav-link" id="_login" href="/login">Login</a>
                               </li>
                               <li class="nav-item d_none">
-                                 <a class="nav-link" href="/register">Register</a>
+                                 <a class="nav-link" id="_register" href="/register">Register</a>
                               </li>
                               @endif
                            </ul>

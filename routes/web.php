@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\CartController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\OrderController as DashboardOrderController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\UserController as DashboardUserController;
 use App\Models\Category;
@@ -28,15 +29,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //phía người dùng
-Route::get('/',[HomeController::class,'index']);
-Route::get('/products',[ProductController::class,'index'])->name('product_list');
-Route::get('/products/{id}',[ProductController::class,'detail'])->name('product_detail');
-Route::get('/categories',[CategoryController::class,'index']);
-Route::get('/categories/{id}',[CategoryController::class,'detail'])->name('cate_detail');
+Route::get('',[HomeController::class,'index'])->name('trangchu');
+Route::get('products',[ProductController::class,'index'])->name('product_list');
+Route::get('products/{id}',[ProductController::class,'detail'])->name('product_detail');
+Route::get('test',[ProductController::class,'test']);
+Route::get('search',[ProductController::class,'search'])->name('product_search');
+Route::get('search_cate',[ProductController::class,'search_cate']);
+
+Route::get('/contact',[ContactController::class,'insert'])->name('contact');
 
 //Giỏ hàng
-Route::get('/cart',[CartController::class,'index']);
-Route::post('/cart',[CartController::class,'store'])->name('cart_store');
+Route::get('cart',[CartController::class,'show']);
+Route::get('cart_data',[CartController::class,'index']);
+Route::post('cart',[CartController::class,'store'])->name('cart_store');
+Route::put('cart/{id}',[CartController::class,'update'])->name('cart_update');
+Route::delete('cart/{id}',[CartController::class,'delete'])->name('cart_delete');
+Route::delete('cart',[CartController::class,'delete_all'])->name('cart_delete_all');
+
+//Payment
+Route::get('payment',[DashboardOrderController::class,'index'])->name('order');
+Route::post('payment',[DashboardOrderController::class,'payment_off'])->name('payment');
 
 
 //login & register
@@ -44,22 +56,22 @@ Route::get('/register',[DashboardUserController::class,'show_register'])->name('
 Route::get('/profile/{id}',[DashboardUserController::class,'profile'])->name('show_profile');
 Route::post('/register',[DashboardUserController::class,'register'])->name('register');
 Route::get('/login',[DashboardUserController::class,'show_login'])->name('show_login');
-Route::post('/login',[DashboardUserController::class,'login'])->name('login');
+Route::post('/login',[DashboardUserController::class,'login'])->name('user-login');
 Route::get('/logout',[DashboardUserController::class,'logout'])->name('logout');
 
+//contact & about
 Route::post('/',[ContactController::class,'insert'])->name('contact.insert');
-
-// route admin
-
-// user
-Route::get('admin/login',[UserController::class,'showlogin'])->name('adminlogin');
-Route::post('admin/login',[UserController::class,'login'])->name('admin.login');
-
-Route::get('/admin/login', function () {
-    return view('admin.page.login');
+Route::get('about',function(){
+    return view('dashboard.layout.about');
 });
 
+// =================================================================================================================
+// =================================================================================================================
+// =================================================================================================================
 
+// user
+Route::get('admin/login',[UserController::class,'showlogin'])->name('admin/login');
+Route::post('admin/login',[UserController::class,'login'])->name('admin.login');
 
 Route::group(['prefix'=> 'admin','middleware'=>'auth'],function(){
     Route::get('/', function (){

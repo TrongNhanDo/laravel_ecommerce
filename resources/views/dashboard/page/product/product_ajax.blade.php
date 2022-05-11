@@ -1,6 +1,6 @@
 @extends('dashboard.layout.master')
 
-@section('title','Products')
+@section('title','Test Ajax')
 
 @section('container')
     <!-- products -->
@@ -18,34 +18,37 @@
                 <div class="our_products">
                     <div class="toppro">
                         <div class="pro-left">
-                            <select name="cate_key" id="cate_key" onchange="cateChanged()">
+                            <select name="cate_key" id="cate_key" onchange="group_cate()">
                                 <option value="">Tìm kiếm theo loại sản phẩm</option>
                                 @foreach($cate as $ca)
                                 <option <?php if(isset($_GET['catid']) && $_GET['catid']== $ca->id){echo "selected";} ?> value="{{$ca->id}}">{{$ca->cate_name}}</option>
                                 @endforeach
                             </select>
                             <script>
-                                function cateChanged(){
-                                    let giatri = document.getElementById('cate_key').value
-                                    if(giatri == ''){
-                                        location.href = '/products'
-                                    }else{
-                                        location.href = '?catid='+giatri
-                                    }
-                                    
+                                function group_cate(){
+                                    var cate_key = document.getElementById('cate_key').value;
+                                    $.ajax({
+										type: "get",
+										url : "/search_cate",
+										data: {
+											cate_key : cate_key
+										},
+										dataType: 'json',
+										success: function(response){
+											$('#listproduct').html(response);
+										}
+									})
                                 }
-						</script>
+                            </script>
                         </div>
                         <div class="pro-right">
-                            <form action="{{route('product_list')}}" method="get">
-                                <button type="submit">Search</button>
-                                <input type="text" name="txtsearch" id="txtsearch" placeholder="Enter name..." /> 
-                            </form>
+                            <button type="submit" id="search">Search</button>
+                            <input type="text" name="txtsearch" id="txtsearch" placeholder="Enter name..." /> 
                         </div>
-                        <script>
-                            $(document).ready(function(){
-								$(document).on('keyup','#txtsearch',function(){
-									var txtsearch = $(this).val();
+						<script>
+							$(document).ready(function(){
+								$(document).on('click','#search',function(){
+									var txtsearch = $("#txtsearch").val();
 									$.ajax({
 										type: "get",
 										url : "/search",
@@ -59,7 +62,7 @@
 									})
 								});
 							});
-                        </script>
+						</script>
                     </div>
                     <div class="row" id="listproduct">
                         @forelse($product as $ca)
@@ -80,11 +83,6 @@
                         @endforelse
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row" style="margin-top: 40px">
-            <div class="col-md-12">
-                {{$product->links()}}
             </div>
         </div>
     </div>

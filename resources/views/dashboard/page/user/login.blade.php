@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <form action="" method="post" class="fm_register" enctype="multipart/form-data">
+                <form action="{{route('user-login')}}" method="post" class="fm_register" enctype="multipart/form-data">
                     @csrf
                     <H1>LOGIN</H1>
                     <div class="noti-register">

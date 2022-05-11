@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
@@ -15,15 +17,34 @@ class UserController extends Controller
         return view('dashboard.page.user.login');
     }
     public function login(Request $request){
-        if(Auth::attempt(['email'=>$request->username,'password'=>$request->password])){
-            return redirect('/');
-        }else{
-            return view('dashboard.page.user.login',['msg_error'=>'Tài khoản hoặc mật khẩu không chính xác']);
+        $name = $request->username;
+        $hashedPassword = User::where('email',$name)->take(1)->get();
+        if($hashedPassword->count()==0){
+            return view('dashboard.page.user.login',['msg_error'=>'Sai tài khoản hoặt mật khẩu']);
         }
+        foreach($hashedPassword as $hash){
+            $mk = $hash->password;
+            $tk = $hash->name;
+            $id = $hash->id;
+        }
+        if (Hash::check($request->password,$mk)) {
+            session()->put('login',true);
+            session()->put('username',$tk);
+            session()->put('userid',$id);
+            //update number product in shpping cart
+            $cart = Cart::where('user_id',session()->get('userid'))->get();
+            $sum = 0;
+            foreach($cart as $ca){
+                $sum += $ca->amount;
+            }
+            session()->put('sum_product',$sum);
+            return redirect('/');
+        }
+        return view('dashboard.page.user.login',['msg_error'=>'Sai tài khoản hoặt mật khẩu']);
     }
     public function profile($id){
-        if(Auth::check()){
-            $user = User::find($id);
+        if(session()->has('login') && session()->get('login')===true){
+            $user = User::find(session()->get('userid'));
             return view('dashboard.page.user.detail',['user'=>$user]);
         }else{
             return redirect('login');
@@ -57,7 +78,13 @@ class UserController extends Controller
         }
     }
     public function logout(){
-        Auth::logout();
+        session::flush();
+        $cart = Cart::where('session_id',session()->getId())->get();
+        $sum = 0;
+        foreach($cart as $ca){
+            $sum += $ca->amount;
+        }
+        session()->put('sum_product',$sum);
         return redirect('/');
     }
 }

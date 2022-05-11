@@ -15,6 +15,10 @@ class ContactController extends Controller
         $ct->phone = $request['phone'];
         $ct->message = $request['message'];
         $ct->save();
-        return redirect('/'); 
+        if($ct->save()){
+            return response()->json('Cảm ơn vì đã liện hệ với chúng tôi!');
+        }else{
+            return response()->json('Xin lỗi! Bạn đã gửi quá nhiều liên hệ cho phép!');
+        } 
     }
 }

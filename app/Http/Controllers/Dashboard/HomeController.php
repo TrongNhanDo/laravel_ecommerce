@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         // take($limit)
-        $cate = DB::table('categories')->take(3)->get();
-        $prod = DB::table('products')->take(3)->get();
+        $cate = DB::table('categories')->get();
+        $prod = DB::table('products')->take(6)->get();
         return view('Dashboard.index',['cate'=>$cate,'prod'=>$prod]);
     }
 }
