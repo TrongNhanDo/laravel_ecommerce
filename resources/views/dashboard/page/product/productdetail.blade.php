@@ -17,6 +17,7 @@
                 <h4>Category: <b>{{$product->cate_name}}</b></h4>
                 <h4>Price: <b>{{number_format($product->price)}}đ</b></h4>
                 <h5>Product available: <b>{{$product->amount}}</b></h5>
+                <h5>Views: {{$product->view}}</h5>
                 <form action="{{route('cart_store')}}" method="post">
                     @csrf
                     <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}">

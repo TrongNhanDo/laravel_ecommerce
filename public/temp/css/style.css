@@ -1321,13 +1321,15 @@ textarea:hovre {
 }
 
 .confirm-register {
-    margin-top: 40px;
     display: flex;
 }
 
 .register-left,
 .register-right {
     width: 50%;
+}
+.register-left button{
+    width: 200px;
 }
 
 .fm_register button {

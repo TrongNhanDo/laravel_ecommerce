@@ -20,7 +20,7 @@ class UserController extends Controller
         $name = $request->username;
         $hashedPassword = User::where('email',$name)->take(1)->get();
         if($hashedPassword->count()==0){
-            return view('dashboard.page.user.login',['msg_error'=>'Sai tài khoản hoặt mật khẩu']);
+            return response()->json(2);
         }
         foreach($hashedPassword as $hash){
             $mk = $hash->password;
@@ -38,9 +38,9 @@ class UserController extends Controller
                 $sum += $ca->amount;
             }
             session()->put('sum_product',$sum);
-            return redirect('/');
+            return response()->json(1);
         }
-        return view('dashboard.page.user.login',['msg_error'=>'Sai tài khoản hoặt mật khẩu']);
+        return response()->json(0);
     }
     public function profile($id){
         if(session()->has('login') && session()->get('login')===true){
@@ -56,24 +56,30 @@ class UserController extends Controller
     public function register(Request $request){
         $kq = User::where('email',$request->email)->get()->count();
         if($kq > 0){
-            return view('dashboard.page.user.register',['msg_error'=>'Email already exists']);
+            return response()->json(2);
         }else{
             $account = new User();
             $account->name = $request->fullname;
             $account->email= $request->email;
             $account->password= bcrypt($request->password);
-            $account->image= basename($_FILES['image']['name']);
+            $account->image = '';
+            // $account->image= basename($_FILES['image']['name']);
             $account->address= $request->address;
             $account->phone= $request->phone;
 
-            $file = $account->image;
-            $target_dir = "image_upload/";
-            $target_file = $target_dir.$file;
-            if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
-                $account->save();
-                return view('dashboard.page.user.register',['msg_success'=>'Register success!']);
+            // $file = $account->image;
+            // $target_dir = "image_upload/";
+            // $target_file = $target_dir.$file;
+            // if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
+            //     $account->save();
+            //     return view('dashboard.page.user.register',['msg_success'=>'Register success!']);
+            // }else{
+            //     return view('dashboard.page.user.register',['msg_error'=>'Upload image fail!']);
+            // }
+            if($account->save()){
+                return response()->json(1);
             }else{
-                return view('dashboard.page.user.register',['msg_error'=>'Upload image fail!']);
+                return response()->json(0);
             }
         }
     }

@@ -53,6 +53,7 @@ class ProductController extends Controller
                                 <h4 style='padding: 10px;'>".$pro->product_name."</h4>
                                 <h5>".$pro->description."</h5>
                                 <h4>".number_format($pro->price)."đ</h4>
+                                <h4>".$pro->view."</h4>
                                 <a title='' href='/products/".$pro->id."'>Detail</a>
                             </div>
                         </div>";
@@ -82,6 +83,7 @@ class ProductController extends Controller
                                 <h4 style='padding: 10px;'>".$pro->product_name."</h4>
                                 <h5>".$pro->description."</h5>
                                 <h4>".number_format($pro->price)."đ</h4>
+                                <h4>".$pro->view."</h4>
                                 <a title='' href='/products/".$pro->id."'>Detail</a>
                             </div>
                         </div>";

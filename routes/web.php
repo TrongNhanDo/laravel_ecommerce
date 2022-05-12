@@ -79,20 +79,20 @@ Route::group(['prefix'=> 'admin','middleware'=>'auth'],function(){
     });
     Route::get('/admin/logout',[UserController::class,'logout'])->name('admin.logout');
     // product
-    Route::get('/listproduct',[AdminProductController::class,'index'])->name('admin.product_list');
-    Route::get('/insertproduct',[AdminProductController::class,'insert'])->name('admin.product_insert');
-    Route::post('/insertproduct',[AdminProductController::class,'store'])->name('admin.product_store');
-    Route::get('/editproduct/{id}',[AdminProductController::class,'edit'])->name('admin.product_edit');
-    Route::post('/editproduct/{id}',[AdminProductController::class,'update'])->name('admin.product_update');
-    Route::delete('/deleteproduct/{id}',[AdminProductController::class,'destroy'])->name('admin.product_delete');
+    Route::get('/product',[AdminProductController::class,'index'])->name('admin.product_list');
+    Route::get('/product/detail/{id}',[AdminProductController::class,'detail']);
+    Route::get('/product/listproduct',[AdminProductController::class,'getproduct']);
+    Route::post('/product',[AdminProductController::class,'store'])->name('admin.product_store');
+    Route::put('/product/{id}',[AdminProductController::class,'update'])->name('admin.product_update');
+    Route::delete('/product/{id}',[AdminProductController::class,'destroy'])->name('admin.product_delete');
 
     // category
-    Route::get('/listcategory',[AdminCategoryController::class,'index'])->name('admin.category_list');
-    Route::get('/insertcategory',[AdminCategoryController::class,'insert'])->name('admin.category_insert');
-    Route::post('/insertcategory',[AdminCategoryController::class,'store'])->name('admin.category_store');
-    Route::get('/editcategory/{id}',[AdminCategoryController::class,'edit'])->name('admin.category_edit');
-    Route::post('/editcategory/{id}',[AdminCategoryController::class,'update'])->name('admin.category_update');
-    Route::delete('/deletecategory/{id}',[AdminCategoryController::class,'destroy'])->name('admin.category_delete');
+    Route::get('/category',[AdminCategoryController::class,'index'])->name('admin.category_list');
+    Route::get('/category/listcategory',[AdminCategoryController::class,'getcategory'])->name('admin.category_insert');
+    Route::post('/category',[AdminCategoryController::class,'store'])->name('admin.category_store');
+    Route::get('/category/detail/{id}',[AdminCategoryController::class,'detail']);
+    Route::put('/category/{id}',[AdminCategoryController::class,'update'])->name('admin.category_update');
+    Route::delete('/category/{id}',[AdminCategoryController::class,'destroy'])->name('admin.category_delete');
 
     
 

@@ -35,39 +35,15 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-            <a class="nav-link part" style="color: orange">
+            <a class="nav-link part" href="{{route('admin.product_list')}}" style="color: orange">
                 <i class="nav-icon fas fa-th"></i><p>Product Management</p>
             </a>
             </li>
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="{{route('admin.product_list')}}" class="nav-link">
-                    <i class="fa-solid fa-circle-right"></i> &nbsp; <p>Product List</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('admin.product_insert')}}" class="nav-link">
-                    <i class="fa-solid fa-circle-right"></i> &nbsp; <p>Product Add</p>
-                    </a>
-                </li>
-            </ul>
             <li class="nav-item">
-                <a class="nav-link part" style="color: orange">
+                <a class="nav-link part" href="{{route('admin.category_list')}}" style="color: orange">
                 <i class="nav-icon fas fa-th"></i><p>Category Management</p>
                 </a>
             </li>
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="{{route('admin.category_list')}}" class="nav-link">
-                    <i class="fa-solid fa-circle-right"></i> &nbsp; <p>Category List</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('admin.category_insert')}}" class="nav-link">
-                    <i class="fa-solid fa-circle-right"></i> &nbsp; <p>Category Add</p>
-                    </a>
-                </li>
-            </ul>
             <li class="nav-item">
                 <a class="nav-link part" style="color: orange">
                 <i class="nav-icon fas fa-th"></i><p>Order Management</p>

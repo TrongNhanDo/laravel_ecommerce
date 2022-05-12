@@ -34,4 +34,4 @@
       @endforelse
     </table>
   </div>
-@endsection
+  

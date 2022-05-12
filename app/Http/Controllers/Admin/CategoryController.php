@@ -8,47 +8,71 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function GuzzleHttp\Promise\all;
+
 class CategoryController extends Controller
 {
     public function index(){
-        $cate  =  Category::all();
-        return view('admin.page.category.list',['cate'=>$cate]);
+        return view('admin.page.category.list');
         
     }
-    public function insert(){
-        return view('admin.page.category.insert');
+    public function getcategory(){
+        $cate = Category::all();
+        $out = "";
+        foreach($cate as $cat){
+            $out .= "<tr>
+                <td>".$cat->id."</td>
+                <td>".$cat->cate_name."</td>
+                <td>".$cat->created_at."</td>
+                <td>".$cat->updated_at."</td>
+                <td>
+                <div class='action'>
+                    <button value='".$cat->id."' data-toggle='modal' data-target='#edit_cate' type='button' class='btn btn-success detail' style='margin-right: 30px'>Detail</button>
+                    <button value='".$cat->id."' class='button-delete btn btn-danger delete' type='submit'>Delete</button>
+                </div>
+                </td>
+            </tr>";
+        }
+        return response()->json($out);
     }
     public function store(\Illuminate\Http\Request $request){
         try{
             $kq = Category::where('cate_name',$request['cate_name'])->get()->count();
             if($kq > 0){
-                return view('admin.page.category.insert',['kq'=>'Tên loại sản phẩm đã tồn tại!']);
+                return response()->json(2);
             }
             $new_cate = new Category();
             $new_cate->cate_name = $request['cate_name'];
             $new_cate->save();
-            return view('admin.page.category.insert',['kq'=>'Thêm loại sản phẩm thành công!']);
+            return response()->json(1);
         }catch(Exception $ex){
-            return view('admin.page.category.insert',['kq'=>'Thêm loại sản phẩm thất bại']);
+            return response()->json(0);
         }
     }
-    public function edit($id){
-        $cate = Category::findOrFail($id);
-        return view('admin.page.category.edit',['cate'=>$cate]);
+    public function detail($id){
+        $cate = Category::find($id);
+        $out = $cate;
+        return response()->json($out);
     }
     public function update(Request $request, $id)
     {
         $category = Category::find($id);
         if($category->cate_name == $request->cate_name){
-            return view('admin.page.category.edit',['cate'=>$category,'msg_error'=>'Tên mới phải khác tên cũ']);
+            return response()->json(2);
         }else{
             $category->cate_name = $request->cate_name;
-            $category->save();
-            return view('admin.page.category.edit',['cate'=>$category,'kq'=>'Cập nhật thành công!']);
+            if($category->save()){
+                return response()->json(1);
+            }else{
+                return response()->json(0);
+            }
         }
     }
     public function destroy($id){
-        Category::destroy($id);
-        return redirect('admin_listcategory');
+        if(Category::destroy($id)){
+            return response()->json(1);
+        }else{
+            return response()->json(0);
+        }        
     }
 }

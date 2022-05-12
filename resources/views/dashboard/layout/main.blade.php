@@ -1,9 +1,9 @@
         <!-- products -->
         <div  class="products">
             <div class="container">
-                <div class="row">
+                <!-- <div class="row">
                     <iframe width="100%" height="600px" src="https://www.youtube.com/embed/xsLAZdl0Lu0" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="titlepage">
@@ -18,7 +18,7 @@
                                 @forelse($cate as $ca)
                                     <div class="col-md-4 margin_bottom1">
                                         <div class="product_box">
-                                            <figure><img title="{{$ca->cate_name}}" src="{{asset('image_upload/belgium.jpg')}}" alt="#" width="90%"></figure>
+                                            <figure><img title="{{$ca->cate_name}}" src="{{asset('image_upload/belgium.jpg')}}" alt="#" width="90%" ></figure>
                                             <h5 title="{{$ca->cate_name}}" style="padding: 15px;">
                                                 <a href="products?catid={{$ca->id}}" title="{{$ca->cate_name}}" style="color:yellowgreen">{{$ca->cate_name}}</a>
                                             </h4>
@@ -47,10 +47,17 @@
                                 @forelse($prod as $ca)
                                     <div class="col-md-4 margin_bottom1">
                                         <div class="product_box">
-                                            <figure><img title="{{$ca->product_name}}" src="image_upload/{{$ca->image}}" alt="#" width=""></figure>
+                                            <figure><img title="{{$ca->product_name}}" id="img_normal" src="image_upload/{{$ca->image}}" alt="#" data-toggle="modal" data-target=".bdd-example-modal-lg" width=""></figure>
                                             <h5 title="{{$ca->product_name}}" style="padding: 15px;">
                                                 <a title="{{$ca->product_name}}" href="{{route('product_detail',$ca->id)}}" style="color:yellowgreen">{{$ca->product_name}}</a>
                                             </h5>
+                                        </div>
+                                        <div class="modal fade bdd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                <img id="img_zoom" alt="" >
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 @empty
@@ -68,3 +75,11 @@
                 </div>
             </div>
         </div>
+<script>
+    $(document).ready(function(){
+        $(document).on('click','#img_normal',function(e){
+            e.preventDefault();
+            $("#img_zoom").attr('src',$(this).attr('src'));
+        })
+    })
+</script>

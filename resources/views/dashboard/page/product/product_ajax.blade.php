@@ -72,6 +72,7 @@
                                 <h4 style="padding: 10px;">{{$ca->product_name}}</h4>
                                 <h5>{{$ca->description}}</h5>
                                 <h4>{{number_format($ca->price)}}đ</h4>
+                                <h4><i class="fa-thin fa-eye"></i> {{$ca->view}} </h4>
                                 <a title="" href="{{route('product_detail',$ca->id)}}">Detail</a>
                             </div>
                         </div>
