@@ -1195,6 +1195,7 @@ ul.social_icon li a:hover {
     -webkit-transform: scale(1.5);
     /* Safari 3-8 */
     transform: scale(1.5);
+    cursor: pointer;
 }
 
 .pro_detail {
@@ -1447,6 +1448,10 @@ td {
     overflow: hidden;
     /** DÒNG BẮT BUỘC CÓ **/
     position: relative;
+}
+
+.product_detail img:hover{
+    cursor: pointer;
 }
 
 .product_box a {

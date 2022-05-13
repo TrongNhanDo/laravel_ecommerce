@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -14,12 +15,12 @@ class UserController extends Controller
     }
     public function login(Request $request){
         if($request->username != 'admin@gmail.com'){
-            return view('admin.page.login',['msg'=>'Tài khoản hoặc mật khẩu không chính xác']);
+            return response()->json(0);
         }
         if(Auth::attempt(['email'=>$request->username,'password'=>$request->password])){
-            return redirect('/admin');
+            return response()->json(1);
         }else{
-            return view('admin.page.login',['msg'=>'Tài khoản hoặc mật khẩu không chính xác']);
+            return response()->json(0);
         }
     }
     public function logout(){

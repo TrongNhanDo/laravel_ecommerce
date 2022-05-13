@@ -18,7 +18,8 @@ class ProductController extends Controller
     }
     public function getproduct(){
         // $product = Product::all();
-        $product = DB::table('products')->join('categories', 'products.id_cate', '=', 'categories.id')->select('products.*', 'categories.cate_name')->get();
+        //$product = DB::table('products')->join('categories', 'products.id_cate', '=', 'categories.id')->select('products.*', 'categories.cate_name')->simplePaginate(8);
+        $product = DB::select('select p.* , c.cate_name from products p,categories c where p.id_cate = c.id ');
         $out = "";
         foreach($product as $pro){
             $out .= "<tr>
@@ -48,7 +49,8 @@ class ProductController extends Controller
         return response()->json($out);
     }
     public function detail($id){
-        $product = DB::table('products')->join('categories', 'products.id_cate', '=', 'categories.id')->select('products.*', 'categories.cate_name')->get();
+        // $product = DB::table('products')->join('categories', 'products.id_cate', '=', 'categories.id')->select('products.*', 'categories.cate_name')->get();
+        $product = DB::select('select p.* , c.cate_name from products p,categories c where p.id_cate = c.id');
         foreach($product as $pro){
             if($pro->id == $id){
                 $out = $pro;

@@ -68,7 +68,14 @@
                         @forelse($product as $ca)
                         <div class="col-md-3 margin_bottom1 prod">
                             <div class="product_box">
-                                <figure><img title="{{$ca->product_name}}" src="image_upload/{{$ca->image}}" alt="#" width=""></figure>
+                                <figure><img id="img" title="{{$ca->product_name}}" src="image_upload/{{$ca->image}}" alt="#" data-toggle="modal" data-target=".zm_img" width=""></figure>
+                                <div class="modal fade bdd-example-modal-lg zm_img" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                        <img id="img_zoom" alt="" >
+                                        </div>
+                                    </div>
+                                </div>
                                 <h4 style="padding: 10px;">{{$ca->product_name}}</h4>
                                 <h5>{{$ca->description}}</h5>
                                 <h4>{{number_format($ca->price)}}đ</h4>
@@ -88,6 +95,14 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $(document).on('click','#img',function(e){
+            e.preventDefault();
+            $("#img_zoom").attr('src',$(this).attr('src'));
+        })
+    })
+</script>
 @endsection
 
 <style>

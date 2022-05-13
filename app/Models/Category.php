@@ -15,4 +15,10 @@ class Category extends Model
     public function products(){
         return $this->hasMany(Product::class,'id_cate','id');
     }
+    protected static function booted()
+    {
+        static::saved(function($category){
+            return redirect('/login');
+        });
+    }
 }
